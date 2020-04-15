@@ -1,0 +1,40 @@
+body{
+    margin: 0;
+    padding: 0;
+    background: #FFEFBA;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #FFFFFF, #FFEFBA);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #FFFFFF, #FFEFBA); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    
+}
+.container{
+    border-radius: 100%;
+    overflow: hidden;
+    width: 500px;
+    height: 500px;
+    margin: 30px auto;
+    display: flex;
+    justify-content:center;
+    align-content: center;
+    flex-wrap: wrap;
+}
+.box{
+    background:rgba(300,300, 0, 0.5);
+    width:50%;
+    height:50%;
+}
+.start{
+    align-self:center;
+    background:  #373B44;
+    color:white;
+    cursor: pointer;
+    height: 100px;
+    font-weight: 700;
+    font-size: 32px;
+    line-height: 100px;
+    position: absolute;
+    text-align: center;
+    width: 300px;
+}
+.container :nth-child(1){background: rgba(0, 300, 0, 0.5);}
+.container :nth-child(2){background: rgba(300, 0, 0, 0.5);}
+.container :nth-child(3){background: rgba(0, 0, 300,0.5);}
