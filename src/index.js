@@ -1,5 +1,5 @@
 class Roulette{
-    constructor(red,blue,green,yellow){
+    constructor(green,red,blue,yellow){
         this.red = red
         this.blue = blue
         this.green = green
@@ -7,14 +7,16 @@ class Roulette{
     }
 
     start(){
+        console.log(this.red)
         alert("INICIÓ");
     }
 }
 
 function startGame(){
-    const container = document.querySelector(".container");
+    const container = document.querySelector(".container").querySelectorAll(".box");
     console.log(container);
-    const myRoulette = new Roulette();
+    const myRoulette = new Roulette(...container);
+    myRoulette.start();
 
 }
 
