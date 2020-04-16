@@ -35,6 +35,10 @@ body{
     text-align: center;
     width: 300px;
 }
-#green{background: rgba(0, 300, 0, 0.5);}
-#red{background: rgba(300, 0, 0, 0.5);}
-#blue{background: rgba(0, 0, 300,0.5);}
+.offgreen{background: rgba(0, 300, 0, 0.5);}
+.offred{background: rgba(300, 0, 0, 0.5);}
+.offblue{background: rgba(0, 0, 300,0.5);}
+.ongreen{background: rgba(0, 300, 0, 1);}
+.onred{background: rgba(300, 0, 0, 1);}
+.onblue{background: rgba(0, 0, 300,1);}
+
