@@ -1,27 +1,23 @@
-class Roulette{
-    constructor(green,red,blue,yellow){
-        this.red = red
-        this.blue = blue
-        this.green = green
-        this.yellow = yellow
-    }
-
-    start(){
-        console.log(this.red)
-        alert("INICIÓ");
-    }
-}
-
 function startGame(){
-    const container = document.querySelector(".container").querySelectorAll(".box");
-    console.log(container);
-    const myRoulette = new Roulette(...container);
-    myRoulette.start();
-
+    const colors = document.querySelector(".container").querySelectorAll(".box");
+    document.querySelector(".start").style.display = "none";
+    sequence(colors,1);
+    /*for(let i = 1; i <= 10; i++){
+    sequence(colors,i);
+    }*/
 }
 
 const getRandomInt = (min, max)=> {
     return Math.floor(Math.random() * (max - min)) + min;
   }
 
+const sequence = (colors,i) =>{
+    for(let j = 0; j < i; j++){
+        TurnOn(colors[getRandomInt(0,colors.length)]);
+    }
+}
+
+const TurnOn = color=>{
+   color.classList.remove("off");
+}
 
