@@ -18,7 +18,6 @@ body{
     flex-wrap: wrap;
 }
 .box{
-    background:rgba(300,300, 0, 0.5);
     width:50%;
     height:50%;
 }
@@ -35,10 +34,9 @@ body{
     text-align: center;
     width: 300px;
 }
-.offgreen{background: rgba(0, 300, 0, 0.5);}
-.offred{background: rgba(300, 0, 0, 0.5);}
-.offblue{background: rgba(0, 0, 300,0.5);}
-.ongreen{background: rgba(0, 300, 0, 1);}
-.onred{background: rgba(300, 0, 0, 1);}
-.onblue{background: rgba(0, 0, 300,1);}
+#green{background: green;}
+#red{background: red;}
+#blue{background: blue;}
+#yellow{background: yellow;}
+.off{opacity:0.5;}
 
