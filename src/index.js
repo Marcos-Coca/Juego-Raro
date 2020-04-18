@@ -2,16 +2,15 @@ class Roulette{
     constructor(colors,start){
         this.start = start;
         this.colors = colors;
-        this.level = 4;
+        this.level = 1;
         
     }
     startGame(){
-        this.start.style.display = "none";
+       this.start.style.display = "none";
         this.colorSequence = [];
         this.levelUp = 0;
         this.container = document.querySelector(".container");
         this.sequence();
-
     }
 
     sequence(){
@@ -34,20 +33,35 @@ class Roulette{
 
     listener(){
         this.container.addEventListener('click',e =>{
-            if(e.target != this.start){
+        if(e.target != this.start){
            if(this.colorSequence[this.levelUp] === e.target){
                 this.levelUp++;
-
+                if(this.levelUp == this.level){
+                    this.next_level();
+                
+                }
              }else{
-                 alert("FAIL")   
+                 this.fail();
              }
-        }
+           
+            }
         });
-    
 }
 
     fail(){
-        alert("FAIL");
+        this.container.removeEventListener('click',()=>{});
+        this.levelUp = 0;
+        this.level = 1;
+        this.startGame();
+        console.log("FAIL");
+    }
+
+    next_level(){
+        this.container.removeEventListener('click',()=>{});
+        this.levelUp = 0;
+        this.level++;
+        console.log("SUCESS");
+        this.startGame();
     }
 
 }
