@@ -2,30 +2,37 @@ class Roulette{
     constructor(colors,start){
         this.start = start;
         this.colors = colors;
-        this.level = 1;
+        this.level = 5;
+        this.container = document.querySelector(".container");
         
     }
     startGame(){
-       this.start.style.display = "none";
+        this.start.style.display = "none";
         this.colorSequence = [];
         this.levelUp = 0;
-        this.container = document.querySelector(".container");
+        console.log("GLOBAL LEVELUP IS: ",this.levelUp);
         this.sequence();
     }
 
-    sequence(){
+    async sequence(){
         for(let i = 0; i < this.level; i++){
-           setTimeout(()=>{
-               this.turnOn(this.getRandomInt(0,this.colors.length),i)
-            },1000*i); 
+        try{
+            await this.turnOn(this.getRandomInt(0,this.colors.length),i);
+            this.listener();
+        }catch(error){
+            console.error(error);
         }
-        this.listener();
+      
+     }
     }
     turnOn(color,i){
-        console.log(color)
-        this.colors[color].classList.remove("off");
-        setTimeout(()=>{this.colors[color].classList.add("off")},500);
-        this.colorSequence[i] = this.colors[color];
+        return new Promise((resolve,reject)=>{
+            this.colors[color].classList.remove("off");
+            setTimeout(()=>{this.colors[color].classList.add("off");},500);
+            setTimeout(()=>{resolve()},1000);
+            
+        });
+        
     }
     getRandomInt(min, max){
         return Math.floor(Math.random() * (max - min)) + min;
@@ -36,9 +43,9 @@ class Roulette{
         if(e.target != this.start){
            if(this.colorSequence[this.levelUp] === e.target){
                 this.levelUp++;
-                if(this.levelUp == this.level){
-                    this.next_level();
-                
+                console.log(this.levelUp)
+                if(this.levelUp === this.level){
+                   return this.next_level();
                 }
              }else{
                  this.fail();
@@ -52,20 +59,21 @@ class Roulette{
         this.container.removeEventListener('click',()=>{});
         this.levelUp = 0;
         this.level = 1;
-        this.startGame();
         console.log("FAIL");
+        if(confirm){
+        this.startGame();
+        }
     }
 
     next_level(){
         this.container.removeEventListener('click',()=>{});
-        this.levelUp = 0;
-        this.level++;
+        this.level+=1;
+        console.log("LOCAL LEVEL IS: ",this.level);
         console.log("SUCESS");
         this.startGame();
     }
 
 }
-
 
 function startGame(){
     const container = document.querySelector(".container").querySelectorAll(".box");
