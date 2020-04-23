@@ -1,9 +1,11 @@
 body{
     margin: 0;
     padding: 0;
-    background: #FFEFBA;  /* fallback for old browsers */
-    background: -webkit-linear-gradient(to right, #FFFFFF, #FFEFBA);  /* Chrome 10-25, Safari 5.1-6 */
-    background: linear-gradient(to right, #FFFFFF, #FFEFBA); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    background: #FFEFBA;  
+    background: -webkit-linear-gradient(to right, #FFFFFF, #FFEFBA);  
+    background: linear-gradient(to right, #FFFFFF, #FFEFBA);
+    font-weight: 700;
+    font-size: 32px; 
     
 }
 .container{
@@ -27,8 +29,6 @@ body{
     color:white;
     cursor: pointer;
     height: 100px;
-    font-weight: 700;
-    font-size: 32px;
     line-height: 100px;
     position: absolute;
     text-align: center;
@@ -40,3 +40,12 @@ body{
 #yellow{background: yellow;}
 .off{opacity:0.5;}
 
+.end{
+    height: 150px;
+    width: 500px;
+    background: whitesmoke;
+    text-align: center;
+    line-height: 200px;
+    color: red;
+    position: absolute;
+}
