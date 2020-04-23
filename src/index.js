@@ -87,14 +87,3 @@ function startGame(){
     myRoulette.startGame();
 }
 
-
-const sequence = (colors,i) =>{
-    for(let j = 0; j < i; j++){
-        TurnOn(colors[getRandomInt(0,colors.length)]);
-    }
-}
-
-const TurnOn = color=>{
-   color.classList.remove("off");
-}
-
