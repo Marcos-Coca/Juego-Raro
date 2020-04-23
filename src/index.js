@@ -2,7 +2,7 @@ class Roulette{
     constructor(colors,start){
         this.start = start;
         this.colors = colors;
-        this.level = 5;
+        this.level = 1;
         this.container = document.querySelector(".container");
         
     }
@@ -18,19 +18,20 @@ class Roulette{
         for(let i = 0; i < this.level; i++){
         try{
             await this.turnOn(this.getRandomInt(0,this.colors.length),i);
-            this.listener();
+            console.log(this.colorSequence[i]);
         }catch(error){
             console.error(error);
         }
-      
      }
+     this.listener();
     }
     turnOn(color,i){
         return new Promise((resolve,reject)=>{
             this.colors[color].classList.remove("off");
+            this.colorSequence[i] = this.colors[color];
             setTimeout(()=>{this.colors[color].classList.add("off");},500);
             setTimeout(()=>{resolve()},1000);
-            
+        
         });
         
     }
@@ -39,23 +40,24 @@ class Roulette{
       }
 
     listener(){
-        this.container.addEventListener('click',e =>{
-        if(e.target != this.start){
-           if(this.colorSequence[this.levelUp] === e.target){
-                this.levelUp++;
-                console.log(this.levelUp)
+        this.container.addEventListener('click',this.container.fn = (e)=>{
+            e.stopImmediatePropagation();
+            console.log('Oye me pulsaste');
+              if(this.colorSequence[this.levelUp] === e.target){
+                 this.levelUp++;
                 if(this.levelUp === this.level){
                    return this.next_level();
                 }
              }else{
-                 this.fail();
+                 console.log('Fail')
+                // return this.fail();
              }
            
-            }
         });
+
 }
 
-    fail(){
+   /* fail(){
         this.container.removeEventListener('click',()=>{});
         this.levelUp = 0;
         this.level = 1;
@@ -63,14 +65,17 @@ class Roulette{
         if(confirm){
         this.startGame();
         }
-    }
+    }*/
 
     next_level(){
-        this.container.removeEventListener('click',()=>{});
-        this.level+=1;
+        this.container.removeEventListener('click',this.container.fn);
+        this.level++;
         console.log("LOCAL LEVEL IS: ",this.level);
         console.log("SUCESS");
-        this.startGame();
+        (this.level === 11)? this.end():this.startGame();
+    }
+    end(){
+        console.log("You Win");
     }
 
 }
