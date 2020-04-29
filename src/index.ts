@@ -1,16 +1,19 @@
-
 class Roulette{
     private start:HTMLElement;
-    private colors:NodeList;
-    private level:number;
     private container:HTMLElement;
+    private finalSentence:HTMLElement;
+    private popUpContainer:HTMLElement;
+    private colors:NodeList;
     private colorSequence:Node[];
+    private level:number;
     private levelUp:number;
     constructor(colors:NodeList){
-        this.start =  document.querySelector(".start");
-        this.colors = colors;
         this.level = 1;
+        this.colors = colors;
+        this.start =  document.querySelector(".start");
         this.container = document.querySelector(".container");
+        this.popUpContainer = document.querySelector('.popup_container');
+        this.finalSentence = document.createElement('p');
         this.startGame();
     
     }
@@ -23,17 +26,12 @@ class Roulette{
 
     private async sequence(){
         for(let i = 0; i < this.level; i++){
-            try{
-                await this.turnOn(this.getRandomInt(0,this.colors.length),i);
-                console.log(this.colorSequence[i]);
-            }catch(error){
-                console.error(error);
-            }
-     }
+            await this.turnOn(this.getRandomInt(0,this.colors.length));
+         }
      this.listener();
     }
-    private turnOn(color:number,i:number){
-        return new Promise((resolve,reject)=>{
+    private turnOn(color:number){
+        return new Promise((resolve)=>{
             this.colors[color].classList.remove("off");
             this.colorSequence.push(this.colors[color]);
             setTimeout(()=>{this.colors[color].classList.add("off");},500);
@@ -48,40 +46,50 @@ class Roulette{
     private listener(){
         this.container.addEventListener('click',this.container.fn = (e)=>{
             e.stopImmediatePropagation();
-            console.log('Oye me pulsaste');
-              if(this.colorSequence[this.levelUp] === e.target){
-                 this.levelUp++;
-                if(this.levelUp === this.level){
-                   return this.next_level();
-                }
-             }else{
-                 console.log('Fail')
-                // return this.fail();
-             }
+              if(this.colorSequence[this.levelUp] !== e.target){
+                    return this.fail();
+              }
+                this.levelUp++;
+                if(this.levelUp === this.level){return this.next_level();}
            
         });
 
 }
-
-   /* fail(){
-        this.container.removeEventListener('click',()=>{});
-        this.levelUp = 0;
-        this.level = 1;
-        console.log("FAIL");
-        if(confirm){
-        this.startGame();
-        }
-    }*/
-
     private next_level(){
         this.container.removeEventListener('click',this.container.fn);
         this.level++;
-        console.log("LOCAL LEVEL IS: ",this.level);
-        console.log("SUCESS");
-        (this.level === 11)? this.end():this.startGame();
+        (this.level === 11)? this.win():this.startGame();
     }
-    private end(){
-        console.log("You Win");
+
+    private fail(){
+        this.finalSentence.innerHTML = 'You Lose';
+        const loseSimbol = document.createElement('span');
+        loseSimbol.innerHTML = `  <span class="simbol"><span class="lose">&times;</span></span>`
+        this.end(loseSimbol);
+    }
+
+    private win(){
+        this.finalSentence.innerHTML = 'You Win';
+        const winSimbol = document.createElement('span');
+        winSimbol.innerHTML = `<span class="win">&#10003;</span>`
+        this.end(winSimbol);
+    }
+
+    
+    private end(simbol:HTMLElement){
+        this.container.removeEventListener('click',this.container.fn);
+        const popUpText = document.getElementById('popUpText');
+        popUpText.appendChild(simbol);
+        popUpText.appendChild(this.finalSentence);
+        this.popUpContainer.style.display = 'inline-block';
+
+        this.popUpContainer.addEventListener('click',()=> {
+            this.popUpContainer.style.display = 'none';
+            this.start.style.display = 'initial';
+            while (popUpText.firstChild) {
+                popUpText.removeChild(popUpText.firstChild);
+            }
+        });
     }
 
 }

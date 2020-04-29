@@ -63,8 +63,8 @@ body{
     box-shadow: 10px 10px 60px #555;
     display: inline-block;
     height: auto;
-    max-width: 551px;
-    min-height: 200px;
+    max-width: 300px;
+    min-height: 100px;
     vertical-align: center;
     width: 60%;
     position: relative;
@@ -72,27 +72,10 @@ body{
     padding: 15px 5%;
 }
 
-.popupClose{
-    background-color: #fff;
-    border: 3px solid #999;
-    border-radius: 50px;
-    cursor: pointer;
-    display: inline-block;
-    font-family: arial;
-    font-weight: bold;
-    position: absolute;
-    top: 0px;
-    right: 0px;
-    font-size: 25px;
-    line-height: 30px;
-    width: 30px;
-    height: 30px;
-    text-align: center;
-}
 .popupClose:hover {
     background-color: #ccc;
 }
-.wrong{
+.lose{
     color:red;
     font-weight: 1000;
     font-size: 90px;
@@ -106,4 +89,10 @@ body{
     text-align: center;
     line-height: 50px;
     border:solid 5px red;
+}
+
+.win{
+    color:green;
+    font-weight: 1000;
+    font-size: 90px;
 }

@@ -36,10 +36,12 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 var Roulette = /** @class */ (function () {
     function Roulette(colors) {
-        this.start = document.querySelector(".start");
-        this.colors = colors;
         this.level = 1;
+        this.colors = colors;
+        this.start = document.querySelector(".start");
         this.container = document.querySelector(".container");
+        this.popUpContainer = document.querySelector('.popup_container');
+        this.finalSentence = document.createElement('p');
         this.startGame();
     }
     Roulette.prototype.startGame = function () {
@@ -50,39 +52,31 @@ var Roulette = /** @class */ (function () {
     };
     Roulette.prototype.sequence = function () {
         return __awaiter(this, void 0, void 0, function () {
-            var i, error_1;
+            var i;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
                         i = 0;
                         _a.label = 1;
                     case 1:
-                        if (!(i < this.level)) return [3 /*break*/, 6];
-                        _a.label = 2;
+                        if (!(i < this.level)) return [3 /*break*/, 4];
+                        return [4 /*yield*/, this.turnOn(this.getRandomInt(0, this.colors.length))];
                     case 2:
-                        _a.trys.push([2, 4, , 5]);
-                        return [4 /*yield*/, this.turnOn(this.getRandomInt(0, this.colors.length), i)];
-                    case 3:
                         _a.sent();
-                        console.log(this.colorSequence[i]);
-                        return [3 /*break*/, 5];
-                    case 4:
-                        error_1 = _a.sent();
-                        console.error(error_1);
-                        return [3 /*break*/, 5];
-                    case 5:
+                        _a.label = 3;
+                    case 3:
                         i++;
                         return [3 /*break*/, 1];
-                    case 6:
+                    case 4:
                         this.listener();
                         return [2 /*return*/];
                 }
             });
         });
     };
-    Roulette.prototype.turnOn = function (color, i) {
+    Roulette.prototype.turnOn = function (color) {
         var _this = this;
-        return new Promise(function (resolve, reject) {
+        return new Promise(function (resolve) {
             _this.colors[color].classList.remove("off");
             _this.colorSequence.push(_this.colors[color]);
             setTimeout(function () { _this.colors[color].classList.add("off"); }, 500);
@@ -96,37 +90,46 @@ var Roulette = /** @class */ (function () {
         var _this = this;
         this.container.addEventListener('click', this.container.fn = function (e) {
             e.stopImmediatePropagation();
-            console.log('Oye me pulsaste');
-            if (_this.colorSequence[_this.levelUp] === e.target) {
-                _this.levelUp++;
-                if (_this.levelUp === _this.level) {
-                    return _this.next_level();
-                }
+            if (_this.colorSequence[_this.levelUp] !== e.target) {
+                return _this.fail();
             }
-            else {
-                console.log('Fail');
-                // return this.fail();
+            _this.levelUp++;
+            if (_this.levelUp === _this.level) {
+                return _this.next_level();
             }
         });
     };
-    /* fail(){
-         this.container.removeEventListener('click',()=>{});
-         this.levelUp = 0;
-         this.level = 1;
-         console.log("FAIL");
-         if(confirm){
-         this.startGame();
-         }
-     }*/
     Roulette.prototype.next_level = function () {
         this.container.removeEventListener('click', this.container.fn);
         this.level++;
-        console.log("LOCAL LEVEL IS: ", this.level);
-        console.log("SUCESS");
-        (this.level === 11) ? this.end() : this.startGame();
+        (this.level === 11) ? this.win() : this.startGame();
     };
-    Roulette.prototype.end = function () {
-        console.log("You Win");
+    Roulette.prototype.fail = function () {
+        this.finalSentence.innerHTML = 'You Lose';
+        var loseSimbol = document.createElement('span');
+        loseSimbol.innerHTML = "  <span class=\"simbol\"><span class=\"lose\">&times;</span></span>";
+        this.end(loseSimbol);
+    };
+    Roulette.prototype.win = function () {
+        this.finalSentence.innerHTML = 'You Win';
+        var winSimbol = document.createElement('span');
+        winSimbol.innerHTML = "<span class=\"win\">&#10003;</span>";
+        this.end(winSimbol);
+    };
+    Roulette.prototype.end = function (simbol) {
+        var _this = this;
+        this.container.removeEventListener('click', this.container.fn);
+        var popUpText = document.getElementById('popUpText');
+        popUpText.appendChild(simbol);
+        popUpText.appendChild(this.finalSentence);
+        this.popUpContainer.style.display = 'inline-block';
+        this.popUpContainer.addEventListener('click', function () {
+            _this.popUpContainer.style.display = 'none';
+            _this.start.style.display = 'initial';
+            while (popUpText.firstChild) {
+                popUpText.removeChild(popUpText.firstChild);
+            }
+        });
     };
     return Roulette;
 }());
