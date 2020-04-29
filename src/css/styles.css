@@ -6,6 +6,7 @@ body{
     background: linear-gradient(to right, #FFFFFF, #FFEFBA);
     font-weight: 700;
     font-size: 32px; 
+    box-sizing: border-box;
     
 }
 .container{
@@ -49,8 +50,7 @@ body{
     text-align:center;
     top:0;
     z-index:10000;
-    /*
-    display:none;*/
+    display:none;
 }
 .popup_container .helper{
     display:inline-block;
@@ -90,4 +90,19 @@ body{
 }
 .popupClose:hover {
     background-color: #ccc;
+}
+.wrong{
+    color:red;
+    font-weight: 1000;
+    font-size: 90px;
+}
+.simbol{
+    overflow: hidden;
+    border-radius: 50%;
+    height: 50px;
+    width: 50px;
+    display: inline-block;
+    text-align: center;
+    line-height: 50px;
+    border:solid 5px red;
 }

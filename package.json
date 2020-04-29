@@ -4,8 +4,11 @@
   "description": "Un juego en el que tienes que colocar la secuencia en el orden en que se iluminan los sectores",
   "main": "src/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "src/index.html"
   },
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "parcel-bundler": "^1.12.4"
+  }
 }
